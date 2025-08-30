@@ -22,5 +22,8 @@
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11",
     "three": "^0.178.0"
+  },
+  "devDependencies": {
+    "sass": "^1.91.0"
   }
 }
