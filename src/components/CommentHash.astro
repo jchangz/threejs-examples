@@ -1,0 +1,21 @@
+<div class="comment-hash"></div>
+
+<style is:global lang="scss">
+  @mixin colored-svg($color) {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='#{$color}' d='M0.86,18.57l0.7-3.78H0v-1.17h1.76l0.61-3.24H0.63V9.21h1.94l0.7-3.78h1.26l-0.7,3.78h2.88l0.7-3.78h1.26l-0.7,3.78h1.57 v1.17H7.78l-0.61,3.24h1.75v1.17H6.97l-0.7,3.78H5l0.7-3.78H2.83l-0.7,3.78H0.86z M3.02,13.62H5.9l0.61-3.24H3.64L3.02,13.62z'/%3E%3C/svg%3E%0A");
+  }
+
+  .comment-hash {
+    width: 1rem;
+    background-size: 1.5rem;
+    height: 100%;
+  }
+
+  [data-theme='dark'] .comment-hash {
+    @include colored-svg($color: '%23ffffff');
+  }
+
+  [data-theme='light'] .comment-hash {
+    @include colored-svg($color: '%230000ff');
+  }
+</style>

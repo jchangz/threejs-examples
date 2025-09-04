@@ -1,0 +1,68 @@
+<div class="timeline-wrapper" id="timeline-controls">
+  <div class="col-span-2" id="controls"></div>
+  <div class="col-start-3">
+    <button class="control-button" id="resume">Pause</button>
+    <button class="control-button" id="restart">Restart</button>
+  </div>
+</div>
+
+<script src="./customElements.ts"></script>
+
+<style>
+  .timeline-wrapper {
+    @apply opacity-0;
+    @apply grid grid-cols-3 gap-x-8 py-12 px-6;
+    @apply 3xl:grid-cols-4 3xl:px-12;
+  }
+</style>
+<style is:global lang="scss">
+  #controls {
+    display: flex;
+    color: var(--astro-code-color-text);
+    &::before {
+      content: '[';
+    }
+    &::after {
+      content: ']';
+    }
+  }
+  .control-button {
+    @apply text-clr-invert bg-clr-invert pr-4;
+  }
+
+  .slider {
+    @apply relative flex items-center overflow-hidden;
+    width: var(--track__width);
+    height: var(--thumb__size);
+
+    --thumb__size: 24px;
+    --track__height: 100%;
+    --track__width: 100%;
+    .track {
+      @apply absolute block w-full opacity-50 pointer-events-none;
+      height: var(--track__height);
+      background: transparent;
+      background-image: radial-gradient(
+        var(--astro-code-color-text) 1px,
+        transparent 0
+      );
+      background-size: 3px 3px;
+    }
+    .slider-input {
+      @apply absolute top-0 left-[-100%] block w-[200%];
+      height: var(--thumb__size);
+      user-select: none;
+      background: linear-gradient(
+        90deg,
+        var(--astro-code-color-text) 50%,
+        rgba(0, 0, 0, 0) 50%
+      );
+      &:hover {
+        cursor: grab;
+      }
+      &:active {
+        cursor: grabbing;
+      }
+    }
+  }
+</style>

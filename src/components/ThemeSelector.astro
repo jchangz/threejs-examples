@@ -1,0 +1,52 @@
+<div>
+  <label for="theme-select" class="text-clr-text">Theme:</label>
+  <select id="theme-select">
+    <option value="dark-plus">Dark Plus</option>
+    <option value="light-plus">Light Plus</option>
+  </select>
+</div>
+
+<script is:inline>
+  const themeSelect = document.getElementById('theme-select');
+
+  const theme = (() => {
+    if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+      return localStorage.getItem('theme');
+    }
+    return 'dark-plus';
+  })();
+
+  document.documentElement.setAttribute('data-theme', theme);
+
+  themeSelect.value = theme;
+
+  window.localStorage.setItem('theme', theme);
+
+  const switchTheme = (e) => {
+    const theme = e.target.value;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  };
+
+  themeSelect.addEventListener('change', switchTheme, false);
+</script>
+
+<style is:global>
+  body {
+    --astro-code-color-background: transparent;
+  }
+
+  [data-theme='dark-plus'] .astro-code code span.line span {
+    color: var(--shiki-dark);
+  }
+  :root[data-theme='dark-plus'] {
+    color-scheme: dark;
+  }
+
+  [data-theme='light-plus'] .astro-code code span.line span {
+    color: var(--shiki-light);
+  }
+  :root[data-theme='light'] {
+    color-scheme: light;
+  }
+</style>

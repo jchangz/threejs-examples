@@ -1,0 +1,189 @@
+---
+import CommentHash from '@components/CommentHash.astro';
+import TimelineControls from '@components/controls/TimelineControls.astro';
+
+const {
+  slug,
+  data: { title, description },
+} = Astro.props;
+
+const placeholder = [];
+
+switch (slug) {
+  case 'merge-two-sorted-lists':
+    placeholder.push('l1', 'l2');
+    break;
+  default:
+    break;
+}
+---
+
+<div class="grid-wrapper">
+  <div class="content-wrapper content-start grid-rows-2">
+    <h1>{title}</h1>
+
+    <a href="/dsa/linked-list" class="underline">Linked List</a>
+
+    <!-- <p class="underline m-0">Easy</p> -->
+
+    <div class="content-description">
+      <CommentHash />
+      <p class="text-comment m-0">{description}</p>
+    </div>
+
+    <div class="content-linked-lists">
+      <div id="linked-lists">
+        {placeholder.map((node) => <p>{node}</p>)}
+      </div>
+      <button id="randomize" class="bg-clr-invert text-clr-invert">
+        Randomize
+      </button>
+    </div>
+  </div>
+
+  <div class="content-wrapper overflow-hidden">
+    <div class="code-block">
+      <div class="code-block-pointer opacity-0" id="code-block-pointer"></div>
+      <slot />
+    </div>
+    <div class="col-span-2">
+      <div
+        id="linked-list-animation"
+        class="text-center origin-left"
+        data-slug={slug}
+      >
+      </div>
+    </div>
+  </div>
+  <TimelineControls />
+</div>
+
+<script>
+  const slug = document.getElementById('linked-list-animation')!.dataset.slug;
+  import(`../../scripts/dsa/linked-list/algorithms/${slug}.ts`);
+</script>
+
+<style lang="scss">
+  .grid-wrapper {
+    @apply text-base col-start-3 pt-6;
+    @apply col-span-6;
+    @apply 3xl:col-span-10 3xl:px-12;
+  }
+  .content-wrapper {
+    @apply grid grid-cols-3 gap-x-8 py-12 px-6 text-clr-text;
+    @apply 3xl:grid-cols-4 3xl:px-12;
+    .content-description {
+      @apply grid grid-cols-[auto_auto] self-start;
+      @apply col-start-2 row-start-1 col-span-2;
+      @apply 2xl:col-start-1 2xl:row-start-2 2xl:col-span-1;
+    }
+    .content-linked-lists {
+      @apply 2xl:col-start-2 2xl:row-start-2;
+    }
+    &.content-start {
+      @apply items-start justify-items-start;
+    }
+  }
+  .code-block {
+    @apply relative overflow-hidden;
+    .code-block-pointer {
+      @apply absolute top-0 w-full bg-clr-invert h-6 mix-blend-difference -translate-y-full;
+    }
+  }
+</style>
+
+<style is:global lang="scss">
+  .node-pointer {
+    @apply absolute top-[30%] left-[-18%] h-[15%] w-full flex justify-center z-10;
+    @apply text-clr-text;
+    &::after {
+      @apply content-[''] border-current border-node border-y-0 border-r-0;
+    }
+    &::before {
+      @apply content-[''] absolute border-current border-node border-b-0 border-r-0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+    }
+  }
+  .node-pointer-top {
+    @apply absolute top-0 left-0 h-[15%] w-full flex justify-center pr-[36%] z-10;
+    &::after {
+      @apply content-[''] border-current border-node border-y-0 border-r-0;
+    }
+    &::before {
+      @apply content-[''] absolute border-current border-node border-b-0 border-r-0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(45deg);
+    }
+  }
+
+  .linked-list-description {
+    & > *:not(:first-of-type):not(:nth-child(2)) {
+      &::before {
+        content: ',';
+      }
+    }
+    .ll-last-node::after {
+      content: ']';
+    }
+  }
+
+  .node {
+    @apply flex items-start w-full pr-[36%] aspect-[1];
+    .node-number {
+      @apply relative flex items-center w-full h-[30%] font-bold;
+      @apply bg-clr-bg text-clr-text;
+      @apply border-current border-node;
+      .node-arrow {
+        @apply relative left-0 w-2/5 h-full flex items-center;
+        border-width: inherit;
+        border-style: inherit;
+        @apply border-inherit border-y-0 border-r-0;
+        &::after {
+          @apply content-[''] absolute left-1/2 w-[200%];
+          border-style: inherit;
+          @apply border-node border-inherit border-x-0 border-b-0;
+        }
+      }
+      span {
+        @apply w-3/5;
+      }
+    }
+  }
+
+  .max-w-node {
+    // default z-index for nodes
+    // animated nodes are assigned new z-indexes
+    // keeps non-animated nodes correctly layered
+    z-index: 10;
+  }
+
+  .nodes {
+    > *:last-of-type {
+      .node::before {
+        @apply content-['null'] absolute left-full;
+        @apply flex items-center justify-center h-[30%] w-full pr-[36%];
+        @apply font-bold text-clr-text bg-clr-bg;
+        @apply z-50; // keep null node above transformations from connected node
+      }
+    }
+  }
+
+  .list-dashed .node-number {
+    @apply border-dashed;
+  }
+
+  .list-dotted .node-number {
+    @apply border-dotted;
+  }
+
+  .list-solid .node-number {
+    @apply border-solid;
+  }
+
+  // [data-slug='remove-duplicates-from-sorted-list'] .list-solid {
+  //   margin-top: 2rem;
+  // }
+</style>
