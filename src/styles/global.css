@@ -6,7 +6,7 @@
   --text-base--line-height: 1.5rem;
   --container-node: 7.5rem;
   --spacing-node: 14%;
-  --spacing-node-border: 0.125em;
+  --border-width-node: 0.125em;
   --color-code-text: var(--astro-code-color-text);
   --color-code-comment: var(--astro-code-token-comment);
   --color-code-bg: var(--astro-code-color-background);
