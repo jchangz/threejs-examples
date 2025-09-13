@@ -32,7 +32,7 @@ export class MergedList {
     this.#mergedListNodePointer.className = 'absolute w-full top-0 h-full opacity-0';
     this.#mergedListNodePointer.innerHTML = `
       <div class="node-pointer">
-        <span class="top-full absolute font-bold bg-clr-bg">node</span>
+        <span class="top-full absolute font-bold bg-code-bg">node</span>
       </div>
     `;
 
