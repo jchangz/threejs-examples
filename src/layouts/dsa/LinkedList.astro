@@ -64,13 +64,14 @@ switch (slug) {
 </script>
 
 <style lang="scss">
+  @reference "@styles/global.css";
   .grid-wrapper {
     @apply text-base col-start-3 pt-6;
     @apply col-span-6;
     @apply 3xl:col-span-10 3xl:px-12;
   }
   .content-wrapper {
-    @apply grid grid-cols-3 gap-x-8 py-12 px-6 text-clr-text;
+    @apply grid grid-cols-3 gap-x-8 py-12 px-6 text-code-text;
     @apply 3xl:grid-cols-4 3xl:px-12;
     .content-description {
       @apply grid grid-cols-[auto_auto] self-start;
@@ -87,15 +88,16 @@ switch (slug) {
   .code-block {
     @apply relative overflow-hidden;
     .code-block-pointer {
-      @apply absolute top-0 w-full bg-clr-invert h-6 mix-blend-difference -translate-y-full;
+      @apply absolute top-0 w-full bg-code-text h-6 mix-blend-difference -translate-y-full;
     }
   }
 </style>
 
 <style is:global lang="scss">
+  @reference "@styles/global.css";
   .node-pointer {
     @apply absolute top-[30%] left-[-18%] h-[15%] w-full flex justify-center z-10;
-    @apply text-clr-text;
+    @apply text-code-text;
     &::after {
       @apply content-[''] border-current border-node border-y-0 border-r-0;
     }
@@ -134,7 +136,7 @@ switch (slug) {
     @apply flex items-start w-full pr-[36%] aspect-[1];
     .node-number {
       @apply relative flex items-center w-full h-[30%] font-bold;
-      @apply bg-clr-bg text-clr-text;
+      @apply bg-code-bg text-code-text;
       @apply border-current border-node;
       .node-arrow {
         @apply relative left-0 w-2/5 h-full flex items-center;
@@ -165,7 +167,7 @@ switch (slug) {
       .node::before {
         @apply content-['null'] absolute left-full;
         @apply flex items-center justify-center h-[30%] w-full pr-[36%];
-        @apply font-bold text-clr-text bg-clr-bg;
+        @apply font-bold text-code-text bg-code-bg;
         @apply z-50; // keep null node above transformations from connected node
       }
     }

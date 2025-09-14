@@ -9,6 +9,7 @@
 <script src="./customElements.ts"></script>
 
 <style>
+  @reference "@styles/global.css";
   .timeline-wrapper {
     @apply opacity-0;
     @apply grid grid-cols-3 gap-x-8 py-12 px-6;
@@ -16,6 +17,7 @@
   }
 </style>
 <style is:global lang="scss">
+  @reference "@styles/global.css";
   #controls {
     display: flex;
     color: var(--astro-code-color-text);
@@ -27,7 +29,7 @@
     }
   }
   .control-button {
-    @apply text-clr-invert bg-clr-invert pr-4;
+    @apply text-code-bg bg-code-text pr-4;
   }
 
   .slider {
